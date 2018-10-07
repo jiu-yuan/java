@@ -1,0 +1,102 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="model">  
+    <!-- 标识一个类的xml映射,name为类名,table为表名 -->  
+    <class name="user" table="user">
+    	<id name="user_id" type="int">
+    		<column name="user_id"/>
+    		<generator class="assigned"/>
+    	</id>
+    	
+    	<property name="user_name" type="string" column="user_name"/>
+    	<property name="level" type="int" column="level"/>
+    	<property name="psd" type="string" column="psd"/>
+    </class>
+    
+    <class name="brand" table="brand">
+    	<id name="brand_id" type="int">
+    		<column name="brand_id"/>
+    		<generator class="assigned"/>
+    	</id>
+    	
+    	<property name="brand_name" type="string" column="brand_name"/>
+    	<property name="brand_describe" type="string" column="brand_describe"/>
+    </class>
+    
+    <class name="category" table="category">
+    	<id name="category_id" type="int">
+    		<column name="category_id"/>
+    		<generator class="assigned"/>
+    	</id>
+    	
+    	<property name="category_name" type="string" column="category_name"/>
+    	<property name="category_describe" type="string" column="category_describe"/>
+    </class>
+    
+    <class name="m_budget" table="m_budget">
+    	<id name="m_budget_id" type="int">
+    		<column name="m_budget_id"/>
+    		<generator class="assigned"/>
+    	</id>
+    	
+    	<property name="quantity" type="int" column="quantity"/>
+    	<property name="unit_price" type="double" column="unit_price"/>
+    	<many-to-one name="m" class="model.m_info" column="m_id" lazy="false"/>
+    	<many-to-one name="user" class="model.user" column="user_id" lazy="false"/>
+    </class>
+    
+    <class name="m_info" table="m_info">	
+    	<id name="m_id" type="int">
+    		<column name="m_id"/>
+    		<generator class="assigned"/>
+    	</id>
+    	
+    	<property name="m_name" type="string" column="m_name"/>  	
+    	<property name="standard" type="string" column="standard"/>
+    	<property name="model_number" type="string" column="model_number"/>
+    	<property name="flower_color" type="string" column="flower_color"/>
+    	<property name="unit_price" type="double" column="unit_price"/>
+    	<property name="unit_of_valuation" type="string" column="unit_of_valuation"/>
+    	<many-to-one name="brand" class="model.brand" column="brand_id" lazy="false"/>
+    	<many-to-one name="category" class="model.category" column="category_id" lazy="false"/>
+    	
+    </class>
+    
+    <class name="m_to_s" table="m_to_s">
+    	<id name="id" type="int">
+    		<column name="id"/>
+    		<generator class="assigned"/>
+    	</id>
+    	
+    	<property name="m_id" type="int" column="m_id"/>
+    	<property name="s_id" type="int" column="s_id"/>
+    	<property name="quantity" type="int" column="quantity"/>
+    </class>
+    
+    <class name="s_budget" table="s_budget">
+    	<id name="s_budget_id" type="int">
+    		<column name="s_budget_id"/>
+    		<generator class="assigned"/>
+    	</id>
+    	
+    	<property name="quantity" type="int" column="quantity"/>
+    	<property name="required_time" type="int" column="required_time"/>
+    	<property name="remark" type="string" column="remark"/>
+    	<many-to-one name="user" class="model.user" column="user_id" lazy="false"/>
+    	<many-to-one name="s" class="model.s_info" column="s_id" lazy="false"/>
+    </class>
+    
+    <class name="s_info" table="s_info">
+    	<id name="s_id" type="int">
+    		<column name="s_id"/>
+    		<generator class="assigned"/>
+    	</id>
+    	
+    	<property name="service_content" type="string" column="service_content"/>
+    	<property name="service_level" type="int" column="service_level"/>
+    	<property name="unit_price" type="double" column="unit_price"/>
+    	<property name="unit_of_valuation" type="string" column="unit_of_valuation"/>
+    	<property name="service_time" type="int" column="service_time"/>
+    </class>
+    
+ 	
+</hibernate-mapping>  
